@@ -1,0 +1,43 @@
+buildscript {
+    repositories { mavenCentral() }
+    dependencies { classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}") }
+}
+
+plugins {
+    id "io.spring.dependency-management" version "1.0.5.RELEASE" apply false
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'eclipse'
+    apply plugin: 'idea'
+
+    repositories { mavenCentral() }
+
+    sourceCompatibility = 1.8
+}
+
+task runApp {
+    dependsOn(':application:bootRun')
+}
+
+task runAll {
+    dependsOn(':web-client:webjar')
+    dependsOn(':application:bootRun')
+    tasks.getByPath(':application:bootRun').mustRunAfter(tasks.getByPath(':web-client:webjar'))
+}
+
+task buildWar {
+    dependsOn(':web-client:war')
+    dependsOn(':application:bootWar')
+}
+
+task buildApp {
+    dependsOn(':application:bootJar')
+}
+
+task buildBundle {
+    dependsOn(':web-client:webjar')
+    dependsOn(':application:bootJar')
+    tasks.getByPath(':application:bootJar').mustRunAfter(tasks.getByPath(':web-client:webjar'))
+}

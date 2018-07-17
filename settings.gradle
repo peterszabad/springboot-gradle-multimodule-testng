@@ -1,0 +1,5 @@
+rootProject.name = 'springboot-gradle-multi'
+
+include 'library'
+include 'web-client'
+include 'application'

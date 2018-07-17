@@ -1,0 +1,13 @@
+apply plugin: 'war'
+
+def distributionDir = 'dist'
+
+war {
+    webAppDirName = distributionDir
+}
+
+task webjar(type: Jar, dependsOn: "jar") {
+    from(fileTree(distributionDir)) {
+        into "META-INF/resources/web-client"
+    }
+}

@@ -1,0 +1,23 @@
+apply plugin: 'io.spring.dependency-management'
+
+jar {
+    baseName = 'springboot-gradle-multi-library'
+    version = "${projectVersion}"
+}
+
+dependencies {
+    compile('org.springframework.boot:spring-boot-starter')
+
+    testCompile('org.springframework.boot:spring-boot-starter-test') {
+        exclude group:'junit', module:'junit'
+    }
+    testCompile("org.testng:testng:${testngVersion}")
+}
+
+dependencyManagement {
+    imports { mavenBom("org.springframework.boot:spring-boot-dependencies:${springBootVersion}") }
+}
+
+test {
+    useTestNG()
+}
