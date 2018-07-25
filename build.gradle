@@ -27,16 +27,22 @@ task runAll {
     tasks.getByPath(':application:bootRun').mustRunAfter(tasks.getByPath(':web-client:webjar'))
 }
 
-task buildWar {
+task buildWars {
     dependsOn(':web-client:war')
     dependsOn(':application:bootWar')
+}
+
+task buildBundleWar {
+    dependsOn(':web-client:webjar')
+    dependsOn(':application:bootWar')
+    tasks.getByPath(':application:bootWar').mustRunAfter(tasks.getByPath(':web-client:webjar'))
 }
 
 task buildApp {
     dependsOn(':application:bootJar')
 }
 
-task buildBundle {
+task buildFatJar {
     dependsOn(':web-client:webjar')
     dependsOn(':application:bootJar')
     tasks.getByPath(':application:bootJar').mustRunAfter(tasks.getByPath(':web-client:webjar'))

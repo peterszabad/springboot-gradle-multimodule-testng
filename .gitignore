@@ -28,6 +28,10 @@ out/
 *.iws
 *.idea
 
+# Development environment
+.vagrant/
+*.log
+
 # Spring Bootstrap artifacts
 
 dependency-reduced-pom.xml
